@@ -2,9 +2,9 @@ class Game
   attr_accessor :current_player
 
   def initialize
-    @p1 = Player.new
-    @p2 = Player.new
-    @current_player = 1
+    @p1 = Player.new(1)
+    @p2 = Player.new(2)
+    @current_player = @p1
     puts "New game started!"
     self.status
   end
@@ -16,32 +16,31 @@ class Game
 
   def question
     puts "--- NEW TURN ---"
-    num1 = rand(1..20)
-    num2 = rand(1..20)
-    puts "Player #{self.current_player}: What is #{num1} + #{num2}?"
+    current_question = Question.new
+    puts "Player #{@current_player.id}: #{current_question.ask}"
     answer = gets.chomp.to_i
 
-    if self.current_player == 1
-      if answer == (num1 + num2)
-        puts "Correct!"
-      else
-        puts "Incorrect!"
-        @p1.lives -= 1
-      end
-      self.current_player = 2
-
+    if current_question.guess?(answer)
+      puts "Correct!"
     else
-      if answer == (num1 + num2)
-        puts "Correct!"
-      else
-        puts "Incorrect!"
-        @p2.lives -= 1
-      end
-      self.current_player = 1
+      puts "Incorrect!"
+      @current_player.lose_life
     end
-    
+
+    self.switch_player
     self.status
   end
+
+  def switch_player
+    if @current_player.id == 1
+      self.current_player = @p2
+    else
+      self.current_player = @p1
+    end
+  end
+
+
+
 
 
 
