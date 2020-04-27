@@ -8,12 +8,3 @@ while game.instance_variable_get(:@p1).is_alive? && game.instance_variable_get(:
   game.question
 end
 
-puts "--- GAME OVER ---"
-
-unless game.instance_variable_get(:@p1).is_alive?
-  puts "Player 2 wins!"
-else
-  puts "Player 1 wins!"
-end
-
-puts "Goodbye!"

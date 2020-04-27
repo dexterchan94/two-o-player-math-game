@@ -12,5 +12,4 @@ class Question
   def guess?(ans)
     ans == @answer
   end
-
 end
