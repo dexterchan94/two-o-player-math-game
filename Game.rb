@@ -10,17 +10,12 @@ class Game
     self.status
   end
 
-  def status
-    puts "Player 1 has #{@p1.lives}/3 lives left"
-    puts "Player 2 has #{@p2.lives}/3 lives left"
-  end
-
   def question
     puts "--- NEW TURN ---"
     current_question = Question.new
     puts "Player #{@current_player.id}: #{current_question.ask}"
     answer = gets.chomp.to_i
-
+    
     if current_question.guess?(answer)
       puts "Correct!"
     else
@@ -33,9 +28,14 @@ class Game
         exit
       end
     end
-
+    
     self.switch_player
     self.status
+  end
+  
+  def status
+    puts "Player 1 has #{@p1.lives}/3 lives left"
+    puts "Player 2 has #{@p2.lives}/3 lives left"
   end
 
   def switch_player
